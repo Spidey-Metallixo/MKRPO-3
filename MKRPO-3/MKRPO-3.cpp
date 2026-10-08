@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <Windows.h>
 
-double Drinks[4][4]{ {600, 350, 510, 498 }, { 598, 198, 300 }, { 798, 698 }, { 400 } };
+double Drinks[4][4]{ { 600, 350, 510, 498 }, { 598, 198, 300 }, { 798, 698 }, { 400 } };
 double ShopCart[4][4]{};
 
 int main()
@@ -10,9 +10,8 @@ int main()
 	SetConsoleOutputCP(1251);
 	srand(time(NULL));
 
-	int choose = 0;
-	int sum = 0;
-	int amount = 0;
+	int choose = 0, amount = 0;
+	double sum = 0;
 
 	while (true)
 	{
@@ -25,6 +24,7 @@ int main()
 		if (choose == 1)
 		{
 			int choose2 = 0;
+			system("cls");
 			std::cout << "Что вы хотите купить?\n";
 			std::cout << "Фруктовые соки:\n1 - Апельсиновый (600руб за 1л)\n2 - Яблочный (350руб за 1л)\n3 - Абрикосовый (510руб за 1л)\n4 - Грушевый (498руб за 1л)\n\n";
 			std::cout << "Овощные соки:\n5 - Томатный (598руб за 1л)\n6 - Луковый (198руб за 1л)\n7 - Огуречный (300руб за 1л)\n\n";
@@ -33,25 +33,22 @@ int main()
 			std::cin >> choose2;
 
 
-
-
-			//ПОДСЧЁТЫ ПОКУПОК КОРЗИНЫ, ПОТОМ ЗАСУНУТЬ В НУЖНУЮ ЧАСТЬ КОДА
-			for (int i = 0; i < 4; i++)
-			{
-				for (int j = 0; j < 4; j++)
-				{
-					sum += ShopCart[i][j] * Drinks[i][j];
-				}
-			}
-
-
 			if (choose2 == 1)
 			{
-
+				system("cls");
 				std::cout << "Сколько литров вы хотите взять? ";
 				std::cin >> amount; 
 				std::cout << ShopCart[0][0] + amount;
 				Sleep(1000);
+			}
+		}
+
+		//ПОДСЧЁТЫ ПОКУПОК КОРЗИНЫ, ПОТОМ ЗАСУНУТЬ В НУЖНУЮ ЧАСТЬ КОДА
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				sum += ShopCart[i][j] * Drinks[i][j];
 			}
 		}
 
@@ -90,7 +87,7 @@ int main()
 
 		else
 		{
-			std::cout << "\n!!!НЕКОРРЕТНЫЙ ВВОД, ВВЕДИТЕ НУЖНОЕ ЗНАЧЕНИЕ!!!\n";
+			std::cout << "\n!!!НЕКОРРЕКТНЫЙ ВВОД, ВВЕДИТЕ НУЖНОЕ ЗНАЧЕНИЕ!!!\n";
 			Sleep(1000);
 			break;
 		}
