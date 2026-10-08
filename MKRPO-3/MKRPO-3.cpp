@@ -1,12 +1,8 @@
 ﻿#include <iostream>
 #include <Windows.h>
 
-double FruitJuices[4]{ 600, 350, 510, 498 };
-double VegetableJuices[3]{ 598, 198, 300 };
-double Teas[2]{ 798, 698 };
-double Hawthorn[1]{ 400 };
-double ShopCart[3][4]{};
-double ShopCartPrices[][]{ {}, {} };
+double Drinks[4][4]{ {600, 350, 510, 498 }, { 598, 198, 300 }, { 798, 698 }, { 400 } };
+double ShopCart[4][4]{};
 
 int main()
 {
@@ -15,9 +11,12 @@ int main()
 	srand(time(NULL));
 
 	int choose = 0;
+	int sum = 0;
+	int amount = 0;
 
 	while (true)
 	{
+		system("cls");
 		std::cout << "\n\n\n\t\tМагазин \"Соки Александра\"\n\n\n";
 		std::cout << "1 - Купить\n";
 		std::cout << "2 - Посмотреть ассортимент\n";
@@ -34,6 +33,26 @@ int main()
 			std::cin >> choose2;
 
 
+
+
+			//ПОДСЧЁТЫ ПОКУПОК КОРЗИНЫ, ПОТОМ ЗАСУНУТЬ В НУЖНУЮ ЧАСТЬ КОДА
+			for (int i = 0; i < 4; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					sum += ShopCart[i][j] * Drinks[i][j];
+				}
+			}
+
+
+			if (choose2 == 1)
+			{
+
+				std::cout << "Сколько литров вы хотите взять? ";
+				std::cin >> amount; 
+				std::cout << ShopCart[0][0] + amount;
+				Sleep(1000);
+			}
 		}
 
 		else if (choose == 2)
@@ -77,6 +96,7 @@ int main()
 		}
 	}
 	
+
 
 	return 0;
 }
