@@ -41,16 +41,18 @@ int main()
 				std::cout << ShopCart[0][0] + amount;
 				Sleep(1000);
 			}
-		}
 
-		//ПОДСЧЁТЫ ПОКУПОК КОРЗИНЫ, ПОТОМ ЗАСУНУТЬ В НУЖНУЮ ЧАСТЬ КОДА
-		for (int i = 0; i < 4; i++)
-		{
-			for (int j = 0; j < 4; j++)
+			//ПОДСЧЁТЫ ПОКУПОК КОРЗИНЫ, ПОТОМ ЗАСУНУТЬ В НУЖНУЮ ЧАСТЬ КОДА
+			for (int i = 0; i < 4; i++)
 			{
-				sum += ShopCart[i][j] * Drinks[i][j];
+				for (int j = 0; j < 4; j++)
+				{
+					sum += ShopCart[i][j] * Drinks[i][j];
+				}
 			}
 		}
+
+
 
 		else if (choose == 2)
 		{
