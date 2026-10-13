@@ -11,7 +11,8 @@ int main()
 	srand(time(NULL));
 
 	int choose = 0, amount = 0;
-	double sum = 0;
+	double sum = 0, discount = 0, bonusLiters = 0;
+	bool noHawthorn = false;
 
 	while (true)
 	{
@@ -31,23 +32,109 @@ int main()
 			std::cout << "Чаи:\n8 - Чесночный (798руб за 1л)\n9 - Петрушевый (698руб за 1л)\n\n";
 			std::cout << "Настойки:\n10 - Боярышник (400 рублей за 1л)\n\n";
 			std::cin >> choose2;
+			int row = -1, col = -1;
+			switch (choose2)
+			{
+			case 1: row = 0; col = 0; break; // Апельсиновый сок
+			case 2: row = 0; col = 1; break; // Яблочный сок
+			case 3: row = 0; col = 2; break; // Абрикосовый сок
+			case 4: row = 0; col = 3; break; // Грушевый сок
+			case 5: row = 1; col = 0; break; // Томатный сок
+			case 6: row = 1; col = 1; break; // Луковый сок
+			case 7: row = 1; col = 2; break; // Огуречный сок
+			case 8: row = 2; col = 0; break; // Чесночный чай
+			case 9: row = 2; col = 1; break; // Петрушевый чай
+			case 10: row = 3; col = 0; break; // Боярышник 
+			default:
+				std::cout << "Неверный выбор товара!\n";
+				Sleep(1000);
+				break;
+			}
 
-
-			if (choose2 == 1)
+			if (row != -1 && col != -1)
 			{
 				system("cls");
 				std::cout << "Сколько литров вы хотите взять? ";
-				std::cin >> amount; 
-				std::cout << ShopCart[0][0] + amount;
+				std::cin >> amount;
+				if (amount > 0)
+				{
+					ShopCart[row][col] += amount;
+					std::cout << "Товар добавлен в корзину!\n";
+				}
+				else
+				{
+					std::cout << "Количество должно быть больше 0!\n";
+				}
 				Sleep(1000);
 			}
 
-			//ПОДСЧЁТЫ ПОКУПОК КОРЗИНЫ, ПОТОМ ЗАСУНУТЬ В НУЖНУЮ ЧАСТЬ КОДА
+			sum = 0;
 			for (int i = 0; i < 4; i++)
 			{
 				for (int j = 0; j < 4; j++)
 				{
 					sum += ShopCart[i][j] * Drinks[i][j];
+				}
+			}
+
+			int onionLiters = (int)ShopCart[1][1];
+			bonusLiters = onionLiters / 4;
+			if (bonusLiters > 0)
+			{
+				discount += bonusLiters * Drinks[1][1];
+			}
+
+			if (ShopCart[2][1] >= 3)
+			{
+				discount += ShopCart[2][1] * Drinks[2][1] * 0.05;
+			}
+
+			double fruitLiters = ShopCart[0][0] + ShopCart[0][1] + ShopCart[0][2] + ShopCart[0][3];
+			if (ShopCart[3][0] >= 1 && fruitLiters >= 1)
+			{
+				noHawthorn = true;
+				discount += ShopCart[3][0] * Drinks[3][0];
+			}
+
+			double afterFirstDiscounts = sum - discount;
+			if (afterFirstDiscounts > 3899)
+			{
+				discount += afterFirstDiscounts * 0.13;
+			}
+
+			double finalSum = sum - discount;
+			if (finalSum < 0) finalSum = 0;
+
+			if (sum > 0)
+			{
+				system("cls");
+				std::cout << "Сумма вашей корзины: " << sum << " руб.\n";
+
+				if (bonusLiters > 0)
+					std::cout << "Акция: каждый 4-й литр лукового сока в подарок (-" << bonusLiters * Drinks[1][1] << " руб.)\n";
+				if (ShopCart[2][1] >= 3)
+					std::cout << "Акция: скидка 5% на 3 литра петрушевого чая (-" << ShopCart[2][1] * Drinks[2][1] * 0.05 << " руб.)\n";
+				if (noHawthorn)
+					std::cout << "Акция: боярышник вам нафиг не доступен (-" << ShopCart[3][0] * Drinks[3][0] << " руб.)\n";
+				if (afterFirstDiscounts > 3899)
+					std::cout << "Акция: скидка 13% на чек (-" << afterFirstDiscounts * 0.13 << " руб.)\n";
+
+				std::cout << "Итого к оплате: " << finalSum << " руб.\n";
+				std::cout << "1 - Оплатить\n";
+				std::cout << "2 - Продолжить покупки\n";
+				int payChoice;
+				std::cin >> payChoice;
+
+				if (payChoice == 1)
+				{
+					std::cout << "Оплата прошла успешно! Спасибо за покупку!\n";
+					std::cout << "Итоговая сумма: " << finalSum << " руб.\n";
+
+					for (int i = 0; i < 4; i++)
+						for (int j = 0; j < 4; j++)
+							ShopCart[i][j] = 0;
+					sum = 0;
+					Sleep(2000);
 				}
 			}
 		}
@@ -58,19 +145,17 @@ int main()
 		{
 			int choose1 = 0;
 			std::cout << "Наши соки из натуральных продуктов и являются лучшими во всём мире!\n";
-			std::cout << "Фруктовые соки:\nАпельсиновый (300руб за 500мл)\nЯблочный (175руб за 500мл)\nАбрикосовый (255руб за 500мл)\nГрушевый (249руб за 500мл)\n\n";
-			std::cout << "Овощные соки:\nТоматный (299руб за 500мл)\nЛуковый (99руб за 500мл)\nОгуречный (150руб за 500мл)\n\n";
+			std::cout << "Фруктовые соки:\nАпельсиновый (600руб за 1л)\nЯблочный (350руб за 1л)\nАбрикосовый (510руб за 1л)\nГрушевый (498руб за 1л)\n\n";
+			std::cout << "Овощные соки:\nТоматный (598руб за 1л)\nЛуковый (198руб за 1л)\nОгуречный (300руб за 1л)\n\n";
 			std::cout << "Так же в нашем ассортименте чаи из натуральных трав (прямиком из Китая)\n";
-			std::cout << "Чаи:\nЧесночный (399руб за 500мл)\nПетрушевый (349руб за 500мл)\n\n";
-			std::cout << "Настойки:\nБоярышник (200 рублей за 500мл)\n\n";
+			std::cout << "Чаи:\nЧесночный (798руб за 1л)\nПетрушевый (698руб за 1л)\n\n";
+			std::cout << "Настойки:\nБоярышник (400 рублей за 1л)\n\n";
 			Sleep(6000);
 			std::cout << "Заинтересовал ли вас наш ассортимент?\n1 - Да, я готов купить\n2 - Как нибудь в следующий раз\n";
 			std::cin >> choose1;
 			if (choose1 == 1)
 			{
-				std::cout << "\nPLACEHOLDER, здесь будет покупка\n";
-				std::cout << "\nPLACEHOLDER, здесь будет покупка\n";
-				std::cout << "\nPLACEHOLDER, здесь будет покупка\n";
+				system("cls");
 			}
 			if (choose1 == 2)
 			{
@@ -94,7 +179,7 @@ int main()
 			break;
 		}
 	}
-	
+
 
 
 	return 0;

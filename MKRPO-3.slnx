@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="MKRPO-3/MKRPO-3.vcxproj" />
+  <Project Path="MKRPO-3/MKRPO-3.vcxproj" Id="0195ec8f-35f7-4062-b68b-13ab4ad15f15" />
 </Solution>
