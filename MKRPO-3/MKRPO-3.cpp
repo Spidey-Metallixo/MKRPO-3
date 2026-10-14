@@ -66,7 +66,7 @@ int main()
 						int canAdd = hawthornLiters - alreadyInCart;
 						if (canAdd < 0) canAdd = 0;
 						std::cout << "На складе нет столько боярышника! Вам выдадется доступный максимум: " << hawthornLiters << " литров.\n";
-						std::cout << "В корзине уже: " << alreadyInCart << "л Можно добавить ещё: " << canAdd << "л.\n";
+						std::cout << "В корзине уже: " << alreadyInCart << "л\nМожно добавить ещё: " << canAdd << "л.\n";
 						amount = canAdd;
 						Sleep(2500);
 					}
