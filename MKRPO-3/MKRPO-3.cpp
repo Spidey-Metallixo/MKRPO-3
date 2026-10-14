@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <Windows.h>
 
 double Drinks[4][4]{ { 600, 350, 510, 498 }, { 598, 198, 300 }, { 798, 698 }, { 400 } };
@@ -129,12 +129,18 @@ int main()
 				{
 					std::cout << "Оплата прошла успешно! Спасибо за покупку!\n";
 					std::cout << "Итоговая сумма: " << finalSum << " руб.\n";
-
-					for (int i = 0; i < 4; i++)
-						for (int j = 0; j < 4; j++)
-							ShopCart[i][j] = 0;
 					sum = 0;
 					Sleep(2000);
+					for (int i = 0; i < 4; i++)
+					{
+						for (int j = 0; j < 4; j++)
+						{
+							ShopCart[i][j] = 0;
+							discount = 0;
+							noHawthorn = false;
+						}
+					}
+
 				}
 			}
 		}
